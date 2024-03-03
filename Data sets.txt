@@ -1,0 +1,63 @@
+USE [s]
+GO
+
+INSERT INTO [dbo].[customer_details]
+         
+     VALUES
+                                       (1,'sharma',50,'pune',14-05-2020,'educational'),
+		   (2,'kamble',56,'kolkata',14-08-2014,'healt care minister'),
+		   (3,'veer',16,'nanded',03-05-2010,'bank operator'),
+		   (4,'karan',30,'solapur',23-02-2022,'shopkeeper'),
+		   (5,'ankita',23,'kolhapur',13-09-2017,'teacher'),
+		   (6,'shloka',70,'pune',15-04-2005,'traveler'),
+		   (7,'anita',20,'splapur',12-06-2006,'drugs dealer'),
+		   (8,'shital',42,'noida',01-01-2020,'accountant'),
+		   (9,'ram',40,'amhadpur',10-05-2002,'doctor driver'),
+		   (10,'ashwini',22,'uattarpraddesh',23-04-2004,'student'),
+		   (11,'ketan',20,'nilanga',30-03-2000,'private tution teacher'),
+		   (12,'parvati',65,'latur',07-07-2019,'lawyer'),
+		   (13,'sandur',35,'vashim',15-05-2017,'farmer'),
+		   (14,'niranjan',47,'nagar',11-01-2020,'hotel manager'),
+		   (15,'isha',19,'amhadnagar',10-12-1015,'poojari'),
+		   (16,'nita',20,'pune',15-05-2016,'carpenter'),
+		   (17,'priya',26,'dadar',25-05-2024,'electrician'),
+		   (18,'radha',25,'amhadabad',11-07-2015,'mechinical helper'),
+		   (19,'motwani',57,'chakur',17-04-2014,'baby keeping'),
+		   (20,'siddhart',22,'latur',02-03-2024,'cook'),
+		   (21,'abhijeet',23,'ausa',09-02-2022,'head of department'),
+		   (22,'sushil',33,'banglore',13-02-2023,'taler'),
+		   (23,'ritesh',26,'kalburgi',16-03-2016,'cleaning department'),
+		   (24,'reddy',53,'delhi',08-05-2012,'oil engin specilist'),
+		   (25,'krishna',23,'pimpri',31-11-2023,'army'),
+		   (26,'soham',45,'dwarka',14-07-2016,'farmer'),
+		   (27,'sharad',18,'jamnagar',30-05-2010,'medical store'),
+		   (28,'sachin',33,'hariyana',09-03-2011,'hacker'),
+		   (29,'bhosale',45,'manglore',03-08-2006,'zoo helper'),
+		   (30,'kirti',27,'rameshwaram',11-12-2010,'nanny'),
+		   (31,'sonam',20,'chennai',17-11-2018,'house owner'),
+		   (32,'alisha',20,'trivendram',09-04-2003,'mall operator'),
+		   (33,'pathan',40,'mirzapur',16-04-2023,'clothing brand'),
+		   (34,'shambhu',44,'bilaspur',14-07-2019,'honey supplier'),
+		   (35,'swara',35,'ranchi',27-03-2017,'car repairing'),
+		   (36,'shivkant',36,'vijapur',19-04-2008,'reporter'),
+                                       (37,'swami',37,'nagpur',13-08-2017,'milkman'),
+                                       (38,'dipali',34,'harangul',17-06-2018,'actor'),
+                                       (39,'ranvijay',35,'rajgad',06-03-2012,'fish seller'),
+		   (40,'mohsin',33,'vardha',11-04-2013,'vegetable shop'),
+		   (41,'sana',27,'sangli',14-12-2005,'builder'),
+		   (42,'shoieb',18,'aurangabad',17-08-2008,'vet'),
+		   (43,'shanta',37,'kokan',03-05-2022,'player'),
+		   (44,'shree',59,'palghar',19-11-2023,'boting'),
+		   (45,'shreya',34,'haridwar',09-04-2017,'bakery'),
+		   (46,'shrayanayya',39,'surat',31-12-2019,'cook'),
+		   (47,'somnath',18,'ranchi',12-12-2019,'gas agency'),
+		   (48,'pushpa',54,'kedarnat',06-06-2014,'petrol pump owner'),
+		   (49,'shobha',32,'prayagraj',18-12-2020,'gold shop'),
+		   (50,'gayatri',64,'gaya',13-07-2016,'pan shop');
+
+
+
+
+
+
+GO

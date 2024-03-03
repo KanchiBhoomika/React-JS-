@@ -1,0 +1,90 @@
+import React from 'react';
+
+const SearchBar = ({ handleSearch }) => {
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search by name or location"
+        onChange={(e) => handleSearch(e.target.value)}
+      />
+    </div>
+  );
+};
+
+export default SearchBar;
+import React, { useState } from 'react';
+
+const DataTable = ({ data }) => {
+  const [sortBy, setSortBy] = useState('date');
+
+  const handleSort = (column) => {
+    setSortBy(column);
+  };
+
+  const sortedData = data.sort((a, b) => {
+    if (sortBy === 'date') {
+      return new Date(b.date) - new Date(a.date);
+    } else {
+      return b.time.localeCompare(a.time);
+    }
+  });
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th onClick={() => handleSort('date')}>Date</th>
+          <th onClick={() => handleSort('time')}>Time</th>
+          <th>Name</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedData.map((item, index) => (
+          <tr key={index}>
+            <td>{item.date}</td>
+            <td>{item.time}</td>
+            <td>{item.name}</td>
+            <td>{item.location}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default DataTable;
+import React, { useState } from 'react';
+import SearchBar from './SearchBar';
+import DataTable from './DataTable';
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
+
+  const data = [
+    { date: '2024-03-01', time: '10:00 AM', name: 'John Doe', location: 'New York' },
+    { date: '2024-03-02', time: '11:00 AM', name: 'Jane Smith', location: 'Los Angeles' },
+    // Add more data here
+  ];
+
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+    const filtered = data.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase()) ||
+      item.location.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+  return (
+    <div>
+      <h1>Search and Sort Data</h1>
+      <SearchBar handleSearch={handleSearch} />
+      <DataTable data={searchTerm ? filteredData : data} />
+    </div>
+  );
+};
+
+export default App;

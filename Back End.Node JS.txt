@@ -1,0 +1,160 @@
+Certainly! Below is the complete code for the backend (Node.js with Express), frontend (React), and PostgreSQL database to achieve the functionality you described.
+
+Backend (Node.js with Express)
+Create index.js:
+javascript
+Copy code
+const express = require('express');
+const bodyParser = require('body-parser');
+const pg = require('pg');
+const cors = require('cors');
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// Database Connection
+const pool = new pg.Pool({
+  user: 'your_username',
+  host: 'localhost',
+  database: 'your_database_name',
+  password: 'your_password',
+  port: 5432,
+});
+
+// Create 50 records with dummy data
+app.post('/create-records', async (req, res) => {
+  try {
+    for (let i = 0; i < 50; i++) {
+      const { name, age, phone, location } = req.body;
+      await pool.query(
+        INSERT INTO customers (name, age, phone, location) VALUES ($1, $2, $3, $4),
+        [name, age, phone, location]
+      );
+    }
+    res.json({ message: 'Records created successfully' });
+  } catch (err) {
+    console.error('Error creating records: ', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Fetch records from database
+app.get('/customers', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 20 } = req.query;
+    const offset = (page - 1) * pageSize;
+    const result = await pool.query(
+      SELECT sno, name, age, phone, location, created_at::date as date, created_at::time as time FROM customers ORDER BY created_at LIMIT $1 OFFSET $2,
+      [pageSize, offset]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching records: ', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(Server is running on port ${PORT});
+});
+Frontend (React)
+Modify App.js:
+jsx
+Copy code
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [customers, setCustomers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortedBy, setSortedBy] = useState('date');
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/customers');
+      setCustomers(response.data);
+    } catch (error) {
+      console.error('Error fetching customers: ', error);
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(http://localhost:5000/customers?search=${searchTerm});
+      setCustomers(response.data);
+    } catch (error) {
+      console.error('Error searching customers: ', error);
+    }
+  };
+
+  const handleSort = async (sortBy) => {
+    try {
+      const response = await axios.get(http://localhost:5000/customers?sort=${sortBy});
+      setCustomers(response.data);
+      setSortedBy(sortBy);
+    } catch (error) {
+      console.error('Error sorting customers: ', error);
+    }
+  };
+
+  return (
+    <div>
+      <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <button onClick={handleSearch}>Search</button>
+      <button onClick={() => handleSort('date')}>Sort by Date</button>
+      <button onClick={() => handleSort('time')}>Sort by Time</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Sno</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customers.map((customer) => (
+            <tr key={customer.sno}>
+              <td>{customer.sno}</td>
+              <td>{customer.name}</td>
+              <td>{customer.age}</td>
+              <td>{customer.phone}</td>
+              <td>{customer.location}</td>
+              <td>{customer.date}</td>
+              <td>{customer.time}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default App;
+Database (PostgreSQL)
+Create a table named customers with the following schema:
+sql
+Copy code
+CREATE TABLE customers (
+  sno SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  age INTEGER NOT NULL,
+  phone VARCHAR(15) NOT NULL,
+  location VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+Insert 50 records with dummy data.
+Make sure to replace your_username, your_database_name, and your_password with your actual PostgreSQL credentials.
+
+This setup should fulfill your requirements of creating a React and Node.js application with PostgreSQL database, including the functionality to display data in a table format with search option and pagination, and the ability to sort the data by date or time.
